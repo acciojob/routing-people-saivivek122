@@ -3,7 +3,7 @@ import React from "react";
 import './../styles/App.css';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import UserList from "./UserList";
-import UserDetails from "./UserDetails";
+import UserDetails from "./UserDetails"; 
 
 const App = () => {
   return (
