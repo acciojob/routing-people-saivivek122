@@ -7,21 +7,21 @@ const UserDetails = () => {
   const [loading, setLoading] = useState(true); // initially true
 
   useEffect(() => {
-    const fetchUser = async () => {
-      try {
-        const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
-        const data = await res.json();
-        await new Promise(resolve => setTimeout(resolve, 500)); // 500ms delay for Cypress
+  fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
+    .then(res => res.json())
+    .then(data => {
+      // simulate delay for Cypress
+      setTimeout(() => {
         setUser(data);
         setLoading(false);
-      } catch (err) {
-        console.error(err);
-        setLoading(false);
-      }
-    };
+      }, 500);
+    })
+    .catch(err => {
+      console.error(err);
+      setLoading(false);
+    });
+}, [id]);
 
-    fetchUser();
-  }, [id]);
 
   if (loading) return <div>Loading...</div>;
   if (!user) return <p>User not found</p>;
