@@ -4,22 +4,26 @@ import { useParams, Link } from "react-router-dom";
 const UserDetails = () => {
   const { id } = useParams();
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true); // ← keep true initially
+  const [loading, setLoading] = useState(true); // initially true
 
   useEffect(() => {
-    fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
-      .then(res => res.json())
-      .then(data => {
+    const fetchUser = async () => {
+      try {
+        const res = await fetch(`https://jsonplaceholder.typicode.com/users/${id}`);
+        const data = await res.json();
+        await new Promise(resolve => setTimeout(resolve, 500)); // 500ms delay for Cypress
         setUser(data);
         setLoading(false);
-      })
-      .catch(err => {
+      } catch (err) {
         console.error(err);
         setLoading(false);
-      });
+      }
+    };
+
+    fetchUser();
   }, [id]);
 
-  if (loading) return <div>Loading...</div>; // ← immediately rendered
+  if (loading) return <div>Loading...</div>;
   if (!user) return <p>User not found</p>;
 
   return (
