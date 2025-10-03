@@ -7,7 +7,7 @@ import UserDetails from "./UserDetails";
 
 const App = () => {
   return (
-    <div>
+    <div> 
         {/* Do not remove the main div */} 
      <Router>
         <Routes>
