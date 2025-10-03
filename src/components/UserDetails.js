@@ -4,20 +4,22 @@ import { useParams, Link } from "react-router-dom";
 const UserDetails = () => {
   const { id } = useParams();
   const [user, setUser] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true); // ← keep true initially
 
   useEffect(() => {
-    setLoading(true);
     fetch(`https://jsonplaceholder.typicode.com/users/${id}`)
       .then(res => res.json())
       .then(data => {
         setUser(data);
         setLoading(false);
       })
-      .catch(err => console.error(err));
+      .catch(err => {
+        console.error(err);
+        setLoading(false);
+      });
   }, [id]);
 
-  if (loading) return <div>Loading...</div>;
+  if (loading) return <div>Loading...</div>; // ← immediately rendered
   if (!user) return <p>User not found</p>;
 
   return (
