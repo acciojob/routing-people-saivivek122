@@ -8,7 +8,7 @@ import UserDetails from "./UserDetails";
 const App = () => {
   return (
     <div>
-        {/* Do not remove the main div */}
+        {/* Do not remove the main div */} 
      <Router>
         <Routes>
           <Route path="/" element={<UserList />} />
